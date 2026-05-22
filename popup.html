@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>StickyMind</title>
+<script src="popup.js" defer></script>
+<style>
+  /* popup.html has its own isolated style context — no scoping needed here */
+
+  body {
+    width: 260px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #1e1e2e;
+    color: #cdd6f4;
+    margin: 0;
+    padding: 14px;
+  }
+
+  h2 {
+    font-size: 15px;
+    color: #cba6f7;
+    margin-bottom: 12px;
+  }
+
+  button {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #open-btn { background: #cba6f7; color: #1e1e2e; }
+  #open-btn:hover { background: #b49ede; }
+
+  /* Subtle hint text reminding the user about the keyboard shortcut */
+  .hint {
+    font-size: 11px;
+    color: #585b70;
+    text-align: center;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h2>📝 StickyMind</h2>
+
+<!--
+  Single button: sends a TOGGLE_PANEL message to content.js
+  in the active tab, then closes the popup so it doesn't linger.
+-->
+<button id="open-btn">Open Panel on This Page</button>
+
+<!-- Remind the user they don't always need to click the toolbar icon -->
+<p class="hint">Or press <strong>Alt+S</strong> anywhere</p>
+
+
+</body>
+</html>

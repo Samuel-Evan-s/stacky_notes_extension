@@ -1,0 +1,236 @@
+/* content.css — Floating Panel Styles
+ *
+ * All selectors are scoped under #stickymind-root to avoid
+ * clashing with the styles of whatever page we're injected into.
+ * This is the CSS equivalent of a namespace.
+ */
+
+
+/* ── Reset
+ * Apply box-sizing and clear margins/padding on everything inside our root.
+ * We set our own font-stack so the panel looks consistent regardless of
+ * whatever font the host page is using.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ── Panel container
+ * Fixed positioning keeps it on screen even when the user scrolls.
+ * z-index is set to the maximum possible value so it floats above
+ * everything on the host page, including modals and overlays.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root .sm-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 320px;
+  max-height: 480px;
+  background: #1e1e2e;    /* Dark base — Catppuccin Mocha palette */
+  color: #cdd6f4;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column; /* Stack header → input → notes → footer vertically */
+  z-index: 2147483647;    /* Max z-index value in browsers */
+  overflow: hidden;
+  border: 1px solid #313244;
+}
+
+/* Utility class toggled by JS to show/hide the panel */
+#stickymind-root .sm-hidden { display: none !important; }
+
+
+/* ── Header
+ * Acts as the drag handle — cursor changes to grab to signal this.
+ * user-select: none prevents text from being highlighted during a drag.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root #sm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #181825;        /* Slightly darker than panel body */
+  padding: 10px 12px;
+  cursor: grab;
+  user-select: none;
+  border-bottom: 1px solid #313244;
+}
+
+#stickymind-root #sm-drag-handle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cba6f7;             /* Lavender accent */
+}
+
+/* Close (✕) button in the header */
+#stickymind-root #sm-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6c7086;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.1s, background 0.1s;
+}
+
+#stickymind-root #sm-close-btn:hover {
+  color: #cdd6f4;
+  background: #313244;
+}
+
+
+/* ── Input area
+ * Contains the textarea and the Add button.
+ * flex-direction: column stacks them vertically.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root #sm-input-area {
+  padding: 10px;
+  background: #1e1e2e;
+  border-bottom: 1px solid #313244;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#stickymind-root #sm-input {
+  width: 100%;
+  background: #181825;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  resize: none;     /* Prevent manual resize — panel size is fixed */
+  outline: none;
+  line-height: 1.4;
+}
+
+/* Highlight the border when the textarea is focused */
+#stickymind-root #sm-input:focus { border-color: #cba6f7; }
+
+/* "Add Note" button — aligned to the right of the input area */
+#stickymind-root #sm-add-btn {
+  align-self: flex-end;
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #cba6f7;    /* Lavender — primary action color */
+  color: #1e1e2e;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+#stickymind-root #sm-add-btn:hover { background: #b49ede; }
+
+
+/* ── Notes list
+ * flex: 1 makes it expand to fill remaining space between input and footer.
+ * overflow-y: auto adds a scrollbar only when notes overflow.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root #sm-notes-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Thin custom scrollbar so it doesn't look out of place in the dark theme */
+#stickymind-root #sm-notes-list::-webkit-scrollbar { width: 4px; }
+#stickymind-root #sm-notes-list::-webkit-scrollbar-thumb {
+  background: #45475a;
+  border-radius: 2px;
+}
+
+/* Individual note card */
+#stickymind-root .sm-note {
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Pinned notes get a warm yellow border to stand out */
+#stickymind-root .sm-note.sm-pinned { border-color: #f9e2af; }
+
+#stickymind-root .sm-note-meta { margin-bottom: 4px; }
+
+/* Timestamp shown above the note text */
+#stickymind-root .sm-time {
+  font-size: 10px;
+  color: #585b70;
+}
+
+/* The actual note content — pre-wrap preserves line breaks */
+#stickymind-root .sm-note-text {
+  font-size: 12.5px;
+  color: #cdd6f4;
+  white-space: pre-wrap;
+  word-break: break-word;  /* Prevent long words from overflowing the card */
+}
+
+/* Pin and delete buttons — hidden-ish until hovered */
+#stickymind-root .sm-note-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+  justify-content: flex-end;
+}
+
+#stickymind-root .sm-note-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0.4;             /* Subtle by default — not distracting while reading */
+  transition: opacity 0.1s;
+  padding: 2px;
+}
+
+#stickymind-root .sm-note-actions button:hover { opacity: 1; }
+
+/* Shown when there are no notes yet today */
+#stickymind-root .sm-empty {
+  font-size: 12px;
+  color: #585b70;
+  text-align: center;
+  padding: 20px 0;
+}
+
+
+/* ── Footer
+ * Shows the note count on the left and the Clear Today button on the right.
+ * ─────────────────────────────────────────────────────────────────────────── */
+#stickymind-root #sm-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #181825;
+  border-top: 1px solid #313244;
+  font-size: 11px;
+  color: #585b70;
+}
+
+#stickymind-root #sm-clear-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #6c7086;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+#stickymind-root #sm-clear-btn:hover {
+  background: #313244;
+  color: #cdd6f4;
+}

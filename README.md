@@ -1,4 +1,4 @@
-# StickyMind
+# Stacky Notes
 
 A draggable floating sticky-notes panel that appears on any webpage. Notes are saved with `chrome.storage.sync`, so they persist across restarts and follow you across signed-in browsers.
 
@@ -9,7 +9,7 @@ A draggable floating sticky-notes panel that appears on any webpage. Notes are s
 ## Install
 
 ### Chrome / Edge (from a release zip)
-1. Download `stickymind-x.y.z.zip` from the [Releases](../../releases) page and unzip it.
+1. Download `stacky-notes-x.y.z.zip` from the [Releases](../../releases) page and unzip it.
 2. Open `chrome://extensions` (or `edge://extensions`) and enable **Developer mode**.
 3. Click **Load unpacked** and select the unzipped folder.
 
@@ -26,9 +26,9 @@ No build step. Load the repo root unpacked and reload the extension after edits 
 To build a store/release zip:
 
 ```sh
-zip -r stickymind-1.0.0.zip manifest.json background.js content.js content.css popup.html popup.js icons
+zip -r stacky-notes-1.0.0.zip manifest.json background.js content.js content.css popup.html popup.js icons
 ```
 
 ## Privacy
 
-StickyMind stores your notes only in your browser's sync storage. It has no servers, no analytics, and sends no data anywhere.
+Stacky Notes stores your notes only in your browser's sync storage. It has no servers, no analytics, and sends no data anywhere.

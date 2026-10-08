@@ -6,7 +6,7 @@
 //
 // Wrapped in an IIFE (Immediately Invoked Function Expression) to avoid
 // polluting the global scope of the host page with our variables.
-console.log("StickyMind content script loaded");
+console.log("Stacky Notes content script loaded");
 (function () {
 
   // Guard: if the panel already exists on this page, don't inject a second one
@@ -31,7 +31,7 @@ console.log("StickyMind content script loaded");
 
       <!-- Header: shows the title and acts as the drag handle -->
       <div id="sm-header">
-        <span id="sm-drag-handle">📝 StickyMind</span>
+        <span id="sm-drag-handle">📝 Stacky Notes</span>
         <button id="sm-close-btn" title="Close">✕</button>
       </div>
 

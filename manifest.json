@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "StickyMind",
+  "name": "Stacky Notes",
   "version": "1.0.0",
   "description": "Floating sticky notes that sync across your Chrome sessions.",
   "permissions": [
@@ -13,7 +13,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "stickymind@samuel-evan-s.github.io",
+      "id": "stackynotes@samuel-evan-s.github.io",
       "strict_min_version": "142.0",
       "data_collection_permissions": {
         "required": ["none"]
@@ -42,7 +42,7 @@
         "default": "Alt+S",
         "mac": "Alt+S"
       },
-      "description": "Toggle the StickyMind panel"
+      "description": "Toggle the Stacky Notes panel"
     }
   },
   "icons": {
